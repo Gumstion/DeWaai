@@ -1,5 +1,5 @@
 <?php
-include $_SERVER["DOCUMENT_ROOT"]."/my-site/DeWaai/DeWaai/functions/connection.php";
+include "connection.php";
 
 $email = $_POST['email'];
 $voornaam = $_POST['vnaam'];
