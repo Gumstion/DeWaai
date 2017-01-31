@@ -6,3 +6,5 @@ $wachtwoord = $_POST['wachtwoord'];
 
 
 $db->checkUser($email, $wachtwoord);
+
+$db->getCursus();
