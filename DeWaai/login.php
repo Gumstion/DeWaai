@@ -1,6 +1,7 @@
 <?php
     include 'includes/header.php';
 ?>
+    <!--Loginformulier-->
     <div class="login-clean">
         <form method="post">
             <h2 class="sr-only">Login Form</h2>

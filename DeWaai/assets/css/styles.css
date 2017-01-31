@@ -1,4 +1,11 @@
-body {padding-top:20px;}
+body {
+    padding-top:20px;
+}
+
+.wrapper {
+    background:#f1f7fc;
+    padding:80px 0;
+}
 
 .post-body {
     margin-top:30px;
@@ -99,7 +106,7 @@ body {padding-top:20px;}
     text-decoration:none;
 }
 
-/* Registration form */
+/* Registratie en contact formulier */
 .contact-clean {
     background:#f1f7fc;
     padding:80px 0;
@@ -182,7 +189,7 @@ body {padding-top:20px;}
     text-transform:uppercase;
     font-weight:bold;
     font-size:13px;
-    letter-spacing:0.4px;
+    letter-spacing:0.025em;
     line-height:1;
     outline:none !important;
 }
@@ -209,15 +216,24 @@ input.form-control {
 /* Footer */
 .footer {
     background: #222222 none repeat scroll 0 0;
-    border-top: 4px solid #fcab0e;
+    border-top: 4px solid #055ADA;
     margin: 0;
     padding: 20px 0;
 }
+
+.footer a {
+    color: #fff;
+}
+
+.footer a:hover {
+    color: #055ADA;
+}
+
 .footer_dv {
     width: 100%;
 }
 .footer_dv h4 {
-    color: #fcab0e;
+    color: #055ADA;
     /*font-family: Roboto;*/
     font-weight: bold;
     margin-bottom: 30px;

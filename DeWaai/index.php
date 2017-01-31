@@ -6,7 +6,7 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" style="background-image:url(assets/images/vloot16kwadraat.jpg);"></div>
                     <div class="swiper-slide" style="background-image:url(assets/images/zeilschool.jpg);"></div>
-                    <div class="swiper-slide" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=68&amp;txt=Slideshow+Image&amp;w=1920&amp;h=500);"></div>
+                    <!--<div class="swiper-slide" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=68&amp;txt=Slideshow+Image&amp;w=1920&amp;h=500);"></div>-->
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev"></div>
@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row">
             <div class="post-body">
-                <p>klaasLorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sem quam, scelerisque vitae sem non, ornare condimentum leo. Vivamus eros tortor, tincidunt et viverra ac, gravida eu augue. Interdum et malesuada fames ac ante ipsum primis
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sem quam, scelerisque vitae sem non, ornare condimentum leo. Vivamus eros tortor, tincidunt et viverra ac, gravida eu augue. Interdum et malesuada fames ac ante ipsum primis
                     in faucibus. Praesent nibh ex, hendrerit at tellus sed, laoreet suscipit leo. </p>
                 <p>Curabitur cursus ac quam sit amet mattis. Donec lacinia massa id libero tincidunt, sed ultricies magna eleifend. Integer porta consectetur ipsum sed porttitor. Praesent sed convallis nisi. Mauris eget commodo sem. Sed auctor commodo quam
                     eu semper. </p>
