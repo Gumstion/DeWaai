@@ -6,11 +6,11 @@
  * Time: 13:21
  */?>
 <?php
-include '../includes/header.php';
+include 'includes/header.php';
 ?>
 <!--Formulier schepen toevoegen-->
 <div class="contact-clean">
-    <form action="../functions/schepen.php" method="post">
+    <form action="functions/schepen.php" method="post">
         <h2 class="text-center">Schip toevoegen </h2>
         <div class="form-group">
             <input class="form-control" type="number" name="schip_id" required="" placeholder="Nummer">
@@ -29,6 +29,6 @@ include '../includes/header.php';
     </form>
 </div>
 <?php
-include '../includes/footer.php';
+include 'includes/footer.php';
 ?>
 

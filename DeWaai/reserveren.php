@@ -6,17 +6,19 @@
  * Time: 13:35
  */?>
 <?php
-include '../includes/header.php';
+include 'includes/header.php';
 ?>
-    <!--Formulier cursus toevoegen-->
+    <!--Formulier reserveren-->
     <div class="contact-clean">
-        <form action="" method="post">
-            <h2 class="text-center">Cursus toevoegen </h2>
+        <form action="functions/reserveren.php" method="post">
+            <h2 class="text-center">Cursus reserveren</h2>
             <div class="form-group">
                 Begindatum:<br>
                 <input class="form-control" type="date" name="bdatum" required="" >
                 Einddatum:<br>
                 <input class="form-control" type="date" name="edatum" required="" >
+                Aantal personen:<br>
+                <input class="form-control" type="number" name="aantal" required="" >
                 <select name="cursus">
                     <option value="1">Beginners</option>
                     <option value="2">Gevorderde</option>
@@ -27,5 +29,5 @@ include '../includes/header.php';
         </form>
     </div>
 <?php
-include '../includes/footer.php';
+include 'includes/footer.php';
 ?>

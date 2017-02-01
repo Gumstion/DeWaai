@@ -33,9 +33,9 @@ class db {
         }
     }
 
-    function setUser($email, $voornaam, $achternaam, $wachtwoord, $wachtwoord2, $telefoonnummer, $IBAN, $postcode, $huisnummer, $straatnaam, $woonplaats, $userlevel) {
+    function setUser($email, $voornaam, $achternaam, $wachtwoord1, $wachtwoord2, $telefoonnummer, $IBAN, $postcode, $huisnummer, $straatnaam, $woonplaats, $userlevel) {
         if(!empty($email) || !empty($achternaam) || !empty($wachtwoord) || !empty($telefoonnummer) || !empty($IBAN) || !empty($postcode) || !empty($huisnummer)) {
-            if($wachtwoord != $wachtwoord2) {
+            if($wachtwoord1 != $wachtwoord2) {
                 echo "Uw wachtwoord komt niet overeen!";
             } else {
                 $getpostcode = "SELECT postcode FROM adres WHERE postcode = ?";
@@ -51,8 +51,6 @@ class db {
                     $prepadres = $this->conn->prepare($sqladres);
                     $prepadres->execute([$postcode, $straatnaam, $woonplaats]);
                     echo "succes";
-                } else {
-                    echo "postcode bestaat al";
                 }
                 //speciale characters worden onthoud door de numerieke code
                 $email = htmlspecialchars($email);
@@ -77,7 +75,7 @@ class db {
         if (!empty($email) || !empty($wachtwoord) ) {
 
             //wachtwoord uit de database halen
-            $sqlpass = "SELECT user_id, wachtwoord, userlevel FROM user WHERE email = ?";
+            $sqlpass = "SELECT user_id, voornaam, wachtwoord, userlevel FROM user WHERE email = ?";
             $preppass = $this->conn->prepare($sqlpass);
             $preppass->execute([$email]);
             $result = $preppass->fetch(PDO::FETCH_ASSOC);
@@ -87,10 +85,10 @@ class db {
             if(password_verify($wachtwoord, $hash)) {
                 $_SESSION['logged'] = 1;
                 $_SESSION['user_id'] = $result['user_id'];
-
-                echo "wachtwoord is juist!";
                 $_SESSION['userlevel'] = $result['userlevel'];
-                header("Location: ../reserveringen.php");
+                $_SESSION['voornaam'] = $result['voornaam'];
+
+                header("Location: ../dashboard.php");
             } else {
                 $_SESSION['logged'] = 0;
                 echo "email of password komen niet overeen!";
@@ -105,24 +103,32 @@ class db {
         echo "Schip succes";
     }
 
-    function setCursus($begindatum, $einddatum, $soort_id) {
-        $sql = "INSERT INTO cursus (begindatum, einddatum, soort_id) VALUES (?,?,?)";
+    function setReservering($begindatum, $einddatum, $aantal, $soort_id) {
+        $sql = "INSERT INTO cursus (begindatum, einddatum, aantal, soort_id) VALUES (?,?,?,?)";
         $prep = $this->conn->prepare($sql);
-        $prep->execute([$begindatum, $einddatum, $soort_id]);
-        echo "Cursus succes";
+        $prep->execute([$begindatum, $einddatum, $aantal, $soort_id]);
+
+        $sql = "SELECT cursus_id FROM cursus WHERE begindatum = ? AND einddatum = ? AND aantal = ? AND soort_id = ?";
+        $prep = $this->conn->prepare($sql);
+        $prep->execute([$begindatum, $einddatum, $aantal, $soort_id]);
+        $result = $prep->fetch(PDO::FETCH_ASSOC);
+        $_SESSION['cursus_id'] = $result['cursus_id'];
+        echo $_SESSION['cursus_id'];
     }
 
-    function setCursist($cursus_id, $user_id) {
+    function setCursist() {
+        $user_id = $_SESSION['user_id'];
+        $cursus_id = $_SESSION['cursus_id'];
         $sql = "INSERT INTO cursistcursus (cursus_id, user_id) VALUES (?,?)";
         $prep = $this->conn->prepare($sql);
         $prep->execute([$cursus_id, $user_id]);
-        echo "Cursist succes";
+        header("Location: ../dashboard.php");
     }
 
-    function setSoortCursus($cursussoort, $prijs) {
-        $sql = "INSERT INTO soortcursus (cursussoort, prijs) VALUES (?,?)";
+    function setSoortCursus($cursussoort, $prijs, $omschrijving) {
+        $sql = "INSERT INTO soortcursus (cursussoort, prijs, beschrijving) VALUES (?,?,?)";
         $prep = $this->conn->prepare($sql);
-        $prep->execute([$cursussoort, $prijs]);
+        $prep->execute([$cursussoort, $prijs, $omschrijving]);
         echo "SoortCursus succes";
     }
 
@@ -146,6 +152,49 @@ class db {
         $prep = $this->conn->prepare($sql);
         $prep->execute([$user_id]);
         $result= $prep->fetch(PDO::FETCH_ASSOC);
-        var_dump($result);
+        $cursus_id = $result['cursus_id'];
+
+        $sql = "SELECT begindatum, einddatum, aantal, soort FROM cursus WHERE cursus_id = ?";
+        $prep = $this->conn->prepare($sql);
+        $prep->execute([$cursus_id]);
+        $result= $prep->fetch(PDO::FETCH_ASSOC);
+
+    }
+
+    function getAllCursus() {
+        $sql = "SELECT * FROM cursus";
+        $sth = $this->conn->prepare($sql);
+        $sth->execute();
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+        $sql = "SELECT cursussoort FROM soortcursus WHERE soort_id = ?";
+        $sth = $this->conn->prepare($sql);
+
+        foreach ($result as $cursus){
+            $soort_id = $cursus['soort_id'];
+            $sth->execute([$soort_id]);
+            $result = $sth->fetch(PDO::FETCH_ASSOC);
+            echo "<li>Begindatum: " . $cursus['begindatum'] . "</li>
+                  <li>Einddatum: " . $cursus['einddatum'] . "</li>
+                  <li>Aantal personen: " . $cursus['aantal'] . "</li>
+                  <li>Cursussoort: " . $result['cursussoort'] . "</li><br/>";
+
+        }
+    }
+
+    function getAllSchepen() {
+        $sql = "SELECT * FROM schip";
+        $sth = $this->conn->prepare($sql);
+        $sth->execute();
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as $schip){
+            echo "<li>Schip_id: " . $schip['schip_id'] . "</li>
+                  <li>Ontwerp: " . $schip['ontwerp'] . "</li>
+                  <li>Naam: " . $schip['naam'] . "</li>
+                  <li>Plaatsen: " . $schip['plaatsen'] . "</li>
+                  <li>Averij: " . $schip['averij'] . "</li>
+                  <li>Cursussoort: " . $schip['soort_id'] . "</li><br/>";
+        }
     }
 }

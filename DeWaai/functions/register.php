@@ -12,6 +12,6 @@ $postcode = $_POST['postcode'];
 $huisnummer = $_POST['huisnummer'];
 $straatnaam = $_POST['straat'];
 $woonplaats = $_POST['woonplaats'];
-$userlevel = "1";
+$userlevel = "3";
 
 $db->setUser($email, $voornaam, $achternaam, $wachtwoord1, $wachtwoord2, $telefoonnummer, $IBAN, $postcode, $huisnummer, $straatnaam, $woonplaats, $userlevel);

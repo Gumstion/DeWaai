@@ -23,6 +23,7 @@ include "includes/header.php";
     <div class="container">
         <div class="row">
             <div class="post-body">
+                <h1>Hier komt een overzicht van de cursussen die deze gebuiker heeft toegevoegd</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sem quam, scelerisque vitae sem non,
                     ornare condimentum leo. Vivamus eros tortor, tincidunt et viverra ac, gravida eu augue. Interdum et
                     malesuada fames ac ante ipsum primis

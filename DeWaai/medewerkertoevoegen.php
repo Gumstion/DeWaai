@@ -6,11 +6,11 @@
  * Time: 13:44
  */?>
 <?php
-include '../includes/header.php';
+include 'includes/header.php';
 ?>
     <!--Formulier medewerker toevoegen-->
     <div class="contact-clean">
-        <form action="" method="post">
+        <form action="functions/medewerker.php" method="post">
             <h2 class="text-center">Medewerker toevoegen </h2>
             <div class="form-group">
                 <input class="form-control" type="text" name="vnaam" required="" placeholder="Voornaam">
@@ -23,7 +23,8 @@ include '../includes/header.php';
                 <input class="form-control" type="text" name="huisnummer" required="" placeholder="Huisnummer">
                 <input class="form-control" type="text" name="postcode" required="" placeholder="Postcode">
                 <input class="form-control" type="password" name="wachtwoord" required="" placeholder="Wachtwoord">
-                <select name="cursus">
+                <input class="form-control" type="password" name="wachtwoord2" required="" placeholder="Wachtwoord herhalen">
+                <select name="userlevel">
                     <option value="1">Admin</option>
                     <option value="2">Medewerker</option>
                     <option value="3">Cursist</option>
@@ -33,5 +34,5 @@ include '../includes/header.php';
         </form>
     </div>
 <?php
-include '../includes/footer.php';
+include 'includes/footer.php';
 ?>

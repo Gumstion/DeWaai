@@ -12,7 +12,7 @@ include 'includes/header.php';
                         $db->getSoortCursus(1);
                     ?>
                 </div>
-                <form action="reserveringen.php" method="post">
+                <form action="functions/checkloggedin.php" method="post">
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Reserveren </button>
                     </div>
@@ -27,7 +27,7 @@ include 'includes/header.php';
                         $db->getSoortCursus(2);
                     ?>
                 </div>
-                <form action="reserveringen.php" method="post">
+                <form action="functions/checkloggedin.php" method="post">
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Reserveren </button>
                     </div>
@@ -42,7 +42,7 @@ include 'includes/header.php';
                         $db->getSoortCursus(3);
                     ?>
                 </div>
-                <form action="reserveringen.php" method="post">
+                <form action="functions/checkloggedin.php" method="post">
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Reserveren </button>
                     </div>
