@@ -22,6 +22,7 @@
                 </li>-->
             </ul>
             <p class="navbar-text navbar-right actions"> <a class="btn btn-default action-button" role="button" href="functions/logout.php">Logout </a></p>
+            <p class="navbar-text navbar-right actions">Cursist</p>
         </div>
     </div>
 </nav>

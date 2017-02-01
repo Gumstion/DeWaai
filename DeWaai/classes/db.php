@@ -25,7 +25,6 @@ class db {
             $this->conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->dbuser, $this->dbpass);
             // set the PDO error mode to exception
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully" . "<br/>";
         }
         catch(PDOException $e)
         {
@@ -36,7 +35,7 @@ class db {
     function setUser($email, $voornaam, $achternaam, $wachtwoord1, $wachtwoord2, $telefoonnummer, $IBAN, $postcode, $huisnummer, $straatnaam, $woonplaats, $userlevel) {
         if(!empty($email) || !empty($achternaam) || !empty($wachtwoord) || !empty($telefoonnummer) || !empty($IBAN) || !empty($postcode) || !empty($huisnummer)) {
             if($wachtwoord1 != $wachtwoord2) {
-                echo "Uw wachtwoord komt niet overeen!";
+                //wachtwoord komt niet overeen
             } else {
                 $getpostcode = "SELECT postcode FROM adres WHERE postcode = ?";
                 $preppostcode = $this->conn->prepare($getpostcode);
@@ -50,7 +49,6 @@ class db {
                     $sqladres = "INSERT INTO adres (postcode, straatnaam, woonplaats) VALUES (?,?,?)";
                     $prepadres = $this->conn->prepare($sqladres);
                     $prepadres->execute([$postcode, $straatnaam, $woonplaats]);
-                    echo "succes";
                 }
                 //speciale characters worden onthoud door de numerieke code
                 $email = htmlspecialchars($email);
@@ -66,6 +64,7 @@ class db {
                 $sqluser = "INSERT INTO user (email, voornaam, achternaam, wachtwoord, telefoonnummer, IBAN, postcode, huisnummer, userlevel) VALUES (?,?,?,?,?,?,?,?,?)";
                 $prepuser = $this->conn->prepare($sqluser);
                 $prepuser->execute([$email, $voornaam, $achternaam, $encryptpass, $telefoonnummer, $IBAN, $postcode, $huisnummer, $userlevel]);
+                header("Location: ../login.php");
             }
         }
 
@@ -91,7 +90,7 @@ class db {
                 header("Location: ../dashboard.php");
             } else {
                 $_SESSION['logged'] = 0;
-                echo "email of password komen niet overeen!";
+                header("Location: ../login.php");
             }
         }
     }
@@ -189,12 +188,32 @@ class db {
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($result as $schip){
+
             echo "<li>Schip_id: " . $schip['schip_id'] . "</li>
                   <li>Ontwerp: " . $schip['ontwerp'] . "</li>
                   <li>Naam: " . $schip['naam'] . "</li>
                   <li>Plaatsen: " . $schip['plaatsen'] . "</li>
                   <li>Averij: " . $schip['averij'] . "</li>
                   <li>Cursussoort: " . $schip['soort_id'] . "</li><br/>";
+        }
+    }
+
+    function getAllMedewerkers() {
+        $sql = "SELECT * FROM user WHERE userlevel = ?";
+        $sth = $this->conn->prepare($sql);
+        $sth->execute([2]);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as $medewerker){
+
+            echo "<li>Schip_id: " . $medewerker['user_id'] . "</li>
+                  <li>Ontwerp: " . $medewerker['email'] . "</li>
+                  <li>Naam: " . $medewerker['voornaam'] . "</li>
+                  <li>Plaatsen: " . $medewerker['achternaam'] . "</li>
+                  <li>Averij: " . $medewerker['telefoonnummer'] . "</li>
+                  <li>Cursussoort: " . $medewerker['IBAN'] . "</li>
+                  <li>Averij: " . $medewerker['postcode'] . "</li>
+                  <li>Averij: " . $medewerker['huisnummer'] . "</li><br/>";
         }
     }
 }
