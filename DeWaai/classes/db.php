@@ -13,8 +13,6 @@ class db {
     private $dbpass;
     private $dbname;
 
-    private $user_id;
-
     function setDB($servername, $dbuser, $dbpass, $dbname) {
         $this->servername = $servername;
         $this->dbuser = $dbuser;
@@ -76,7 +74,6 @@ class db {
     }
 
     function checkUser($email, $wachtwoord) {
-        session_start();
         if (!empty($email) || !empty($wachtwoord) ) {
 
             //wachtwoord uit de database halen
@@ -86,22 +83,17 @@ class db {
             $result = $preppass->fetch(PDO::FETCH_ASSOC);
             $hash = $result['wachtwoord'];
 
-            $this->user_id = $result['user_id'];
-            echo $this->user_id;
-
             //kijken of het encrypted wachtwoord overeen komt met het wachtwoord in de database
             if(password_verify($wachtwoord, $hash)) {
+                $_SESSION['logged'] = 1;
+                $_SESSION['user_id'] = $result['user_id'];
+
                 echo "wachtwoord is juist!";
                 $_SESSION['userlevel'] = $result['userlevel'];
-                $userlevel = $_SESSION['userlevel'];
-                //admin
-                if(!empty($userlevel)) {
-                    //header("Location: ../loggedin.php");
-                } else {
-
-                }
+                header("Location: ../reserveringen.php");
             } else {
-                echo "password komt niet overeen!";
+                $_SESSION['logged'] = 0;
+                echo "email of password komen niet overeen!";
             }
         }
     }
@@ -134,13 +126,26 @@ class db {
         echo "SoortCursus succes";
     }
 
+    function getSoortCursus($soort) {
+        $sql = "SELECT cursussoort, prijs, beschrijving FROM soortcursus WHERE soort_id = ?";
+        $prep = $this->conn->prepare($sql);
+        $prep->execute([$soort]);
+        $result= $prep->fetch(PDO::FETCH_ASSOC);
+        $prijs = $result['prijs'];
+        $cursussoort = $result['cursussoort'];
+        $beschrijving = $result['beschrijving'];
+        echo "<h4 class=\"pull-right\">€$prijs,-</h4><br/>";
+        echo "<h4><a href=\"#\">$cursussoort</a></h4>";
+        echo "<p>$beschrijving</p>";
+    }
+
     function getCursus() {
-        echo "dit werkt";
-        $sqlpass = "SELECT cursus_id FROM cursistcursus WHERE user_id = ?";
-        $preppass = $this->conn->prepare($sqlpass);
-        $preppass->execute([""]);
-        $result = $preppass->fetch(PDO::FETCH_ASSOC);
-        $hash = $result['wachtwoord'];
-        echo $result['cursus_id'];
+        $user_id = $_SESSION['user_id'];
+        echo $user_id;
+        $sql = "SELECT cursus_id FROM cursistcursus WHERE user_id = ?";
+        $prep = $this->conn->prepare($sql);
+        $prep->execute([$user_id]);
+        $result= $prep->fetch(PDO::FETCH_ASSOC);
+        var_dump($result);
     }
 }

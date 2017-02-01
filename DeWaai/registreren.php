@@ -1,6 +1,5 @@
 <?php
     include 'includes/header.php';
-    include 'functions/connection.php';
 ?>
     <!--Registratieformulier-->
     <div class="contact-clean">

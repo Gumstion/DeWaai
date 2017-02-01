@@ -6,7 +6,7 @@
  * Time: 13:44
  */?>
 <?php
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
     <!--Formulier medewerker toevoegen-->
     <div class="contact-clean">
@@ -33,5 +33,5 @@ include 'includes/header.php';
         </form>
     </div>
 <?php
-include 'includes/footer.php';
+include '../includes/footer.php';
 ?>
