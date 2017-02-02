@@ -8,21 +8,23 @@
                 <li role="presentation"><a href="index.php">Home</a></li>
                 <li role="presentation"><a href="cursussen.php">Cursussen</a></li>
                 <li role="presentation"><a href="contact.php">Contact</a></li>
-                <li role="presentation"><a href="cursus.php">Cursus</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="cursus.php">Cursus </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a href="cursustoevoegen.php">Cursus toevoegen</a></li>
+                        <li role="presentation"><a href="#">Cursus Wijzigen</a></li>
+                    </ul>
+                </li>
                 <li role="presentation"><a href="schepen.php">Schepen</a></li>
 
 
-                <!-- Voor eventuele drop down.
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Contact </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="presentation"><a href="#">First Item</a></li>
-                        <li role="presentation"><a href="#">Second Item</a></li>
-                        <li role="presentation"><a href="#">Third Item</a></li>
-                    </ul>
-                </li>-->
+
+
             </ul>
             <p class="navbar-text navbar-right actions"> <a class="btn btn-default action-button" role="button" href="functions/logout.php">Logout </a></p>
-            <p class="navbar-text navbar-right actions">Cursist</p>
-        </div>
+            <p class="navbar-text navbar-right actions">Welkom
+                <?php
+                echo $_SESSION['voornaam'];
+                ?>
+            </p>        </div>
     </div>
 </nav>

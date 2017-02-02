@@ -1,6 +1,6 @@
 <?php
 session_start();
-include $_SERVER["DOCUMENT_ROOT"]."/my-site/DeWaai/DeWaai/classes/db.php";
+include "classes/db.php";
 
 $db = new db();
 $db->setDB("localhost", "dewaai", "dewaai", "dewaai");

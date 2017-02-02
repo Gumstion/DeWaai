@@ -22,7 +22,6 @@ if($_SESSION['logged'] == 1) {
     } else {
         include 'includes/cursistmenu.php';
     }
-    echo $_SESSION['voornaam'];
 } else {
     include 'includes/menu.php';
 }

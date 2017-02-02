@@ -86,10 +86,12 @@ class db {
                 $_SESSION['user_id'] = $result['user_id'];
                 $_SESSION['userlevel'] = $result['userlevel'];
                 $_SESSION['voornaam'] = $result['voornaam'];
+                $_SESSION['foutinloggen'] = "";
 
                 header("Location: ../dashboard.php");
             } else {
                 $_SESSION['logged'] = 0;
+                $_SESSION['foutinloggen'] = "Email of wachtwoord is onjuist!";
                 header("Location: ../login.php");
             }
         }
@@ -99,7 +101,7 @@ class db {
         $sql = "INSERT INTO schip (schip_id, ontwerp, naam, plaatsen, averij, soort_id) VALUES (?,?,?,?,?,?)";
         $prep = $this->conn->prepare($sql);
         $prep->execute([$schip_id, $ontwerp, $naam, $plaatsen, $averij, $soort_id]);
-        echo "Schip succes";
+        header("Location: ../schepentoevoegen.php");
     }
 
     function setReservering($begindatum, $einddatum, $aantal, $soort_id) {
@@ -128,7 +130,7 @@ class db {
         $sql = "INSERT INTO soortcursus (cursussoort, prijs, beschrijving) VALUES (?,?,?)";
         $prep = $this->conn->prepare($sql);
         $prep->execute([$cursussoort, $prijs, $omschrijving]);
-        echo "SoortCursus succes";
+        header("Location: ../cursustoevoegen.php");
     }
 
     function getSoortCursus($soort) {

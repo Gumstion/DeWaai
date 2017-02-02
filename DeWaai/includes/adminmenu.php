@@ -8,10 +8,24 @@
                 <li role="presentation"><a href="index.php">Home</a></li>
                 <li role="presentation"><a href="cursussen.php">Cursussen</a></li>
                 <li role="presentation"><a href="contact.php">Contact</a></li>
-                <li role="presentation"><a href="cursustoevoegen.php">Cursus toevoegen</a></li>
-                <li role="presentation"><a href="schepen.php">Schip toevoegen</a></li>
-                <li role="presentation"><a href="medewerker.php">Medewerker toevoegen</a></li>
-                <li role="presentation"><a href="cursus.php">Cursus</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Cursus </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a href="cursustoevoegen.php">Cursus toevoegen</a></li>
+                        <li role="presentation"><a href="cursus.php">Cursus overzicht</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Schip </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a href="schepentoevoegen.php">Schip toevoegen</a></li>
+                        <li role="presentation"><a href="schepen.php">Schip overzicht</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Medewerker </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a href="medewerkertoevoegen.php">Medewerker toevoegen</a></li>
+                        <li role="presentation"><a href="medewerker.php">Medewerker overzicht</a></li>
+                    </ul>
+                </li>
 
 
 
@@ -25,7 +39,10 @@
                 </li>-->
             </ul>
             <p class="navbar-text navbar-right actions"> <a class="btn btn-default action-button" role="button" href="functions/logout.php">Logout </a></p>
-            <p class="navbar-text navbar-right actions">Admin</p>
-        </div>
+            <p class="navbar-text navbar-right actions">Welkom
+                <?php
+                echo $_SESSION['voornaam'];
+                ?>
+            </p>        </div>
     </div>
 </nav>
