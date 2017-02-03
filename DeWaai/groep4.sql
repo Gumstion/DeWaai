@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 03 feb 2017 om 07:29
--- Serverversie: 5.7.14
--- PHP-versie: 5.6.25
+-- Gegenereerd op: 03 feb 2017 om 09:19
+-- Serverversie: 10.1.21-MariaDB
+-- PHP-versie: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,10 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dewaai`
+-- Database: `groep4`
 --
-CREATE DATABASE IF NOT EXISTS `dewaai` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `dewaai`;
+CREATE DATABASE IF NOT EXISTS `groep4` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `groep4`;
 
 -- --------------------------------------------------------
 
@@ -92,8 +92,7 @@ CREATE TABLE `cursus` (
 INSERT INTO `cursus` (`cursus_id`, `weeknummer`, `aantal`, `soort_id`) VALUES
 (1, 0, 3, 2),
 (2, 3, 44, 1),
-(3, 5, 3, 1),
-(4, 55, 44, 1);
+(9, 26, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -137,7 +136,7 @@ CREATE TABLE `soortcursus` (
 --
 
 INSERT INTO `soortcursus` (`soort_id`, `cursussoort`, `prijs`, `beschrijving`, `schip_ontwerp`, `aantal`, `bezet`) VALUES
-(1, 'Beginner', 500, 'Lekker makkelijk!', '16-Kwadraat', 54, 47),
+(1, 'Beginner', 500, 'Lekker makkelijk!', '16-Kwadraat', 54, 53),
 (2, 'Gevorderden', 700, 'Iets lastiger!', 'Draak', 0, 0),
 (3, 'Wadtochten', 800, 'Lekker over de wadden varen!', 'Schouw', 0, 0);
 
@@ -224,7 +223,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT voor een tabel `cursus`
 --
 ALTER TABLE `cursus`
-  MODIFY `cursus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cursus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT voor een tabel `soortcursus`
 --
@@ -235,35 +234,6 @@ ALTER TABLE `soortcursus`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
--- Beperkingen voor geëxporteerde tabellen
---
-
---
--- Beperkingen voor tabel `cursistcursus`
---
-ALTER TABLE `cursistcursus`
-  ADD CONSTRAINT `cursistcursus_cursus_cursus_id_fk` FOREIGN KEY (`cursus_id`) REFERENCES `cursus` (`cursus_id`),
-  ADD CONSTRAINT `cursistcursus_user_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
-
---
--- Beperkingen voor tabel `cursus`
---
-ALTER TABLE `cursus`
-  ADD CONSTRAINT `cursus_soortcursus_soort_id_fk` FOREIGN KEY (`soort_id`) REFERENCES `soortcursus` (`soort_id`);
-
---
--- Beperkingen voor tabel `schip`
---
-ALTER TABLE `schip`
-  ADD CONSTRAINT `schip_soortcursus_soort_id_fk` FOREIGN KEY (`soort_id`) REFERENCES `soortcursus` (`soort_id`);
-
---
--- Beperkingen voor tabel `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_adres_postcode_fk` FOREIGN KEY (`postcode`) REFERENCES `adres` (`postcode`);
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

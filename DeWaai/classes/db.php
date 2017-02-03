@@ -137,21 +137,23 @@ class db {
             $sql = "INSERT INTO cursus (weeknummer, aantal, soort_id) VALUES (?,?,?)";
             $prep = $this->conn->prepare($sql);
             $prep->execute([$weeknummer, $aantal, $soort_id]);
+            $_SESSION['cursus_is_vol'] = "";
 
             $sql = "UPDATE soortcursus SET bezet = ? WHERE soort_id = ?";
             $prep = $this->conn->prepare($sql);
             $prep->execute([$updateBezet, $soort_id]);
+            header("Location: ../reserveren.php");
         }
     }
 
-    function setCursist() {
+/*    function setCursist() {
         $user_id = $_SESSION['user_id'];
         $cursus_id = $_SESSION['cursus_id'];
         $sql = "INSERT INTO cursistcursus (cursus_id, user_id) VALUES (?,?)";
         $prep = $this->conn->prepare($sql);
         $prep->execute([$cursus_id, $user_id]);
         header("Location: ../dashboard.php");
-    }
+    }*/
 
     function setSoortCursus($cursussoort, $prijs, $omschrijving, $ontwerp) {
         $sql = "INSERT INTO soortcursus (cursussoort, prijs, beschrijving, schip_ontwerp, aantal, bezet) VALUES (?,?,?,?,?,?)";

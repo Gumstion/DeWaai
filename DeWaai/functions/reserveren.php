@@ -12,4 +12,4 @@ $aantal = $_POST['aantal'];
 $soort_id = $_POST['cursus'];
 
 $db->setReservering($weeknummer, $aantal, $soort_id);
-$db->setCursist();
+/*$db->setCursist();*/
