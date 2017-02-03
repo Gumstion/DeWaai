@@ -8,8 +8,18 @@
                 <li role="presentation"><a href="index.php">Home</a></li>
                 <li role="presentation"><a href="cursussen.php">Cursussen</a></li>
                 <li role="presentation"><a href="contact.php">Contact</a></li>
-                <li role="presentation"><a href="cursustoevoegen.php">Cursus toevoegen</a></li>
-                <li role="presentation"><a href="schepen.php">Schip toevoegen</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Cursus </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a href="cursustoevoegen.php">Cursus toevoegen</a></li>
+                        <li role="presentation"><a href="cursus.php">Cursus overzicht</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Schip </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a href="schepentoevoegen.php">Schip toevoegen</a></li>
+                        <li role="presentation"><a href="schepen.php">Schip overzicht</a></li>
+                    </ul>
+                </li>
 
                 <!-- Voor eventuele drop down.
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Contact </a>

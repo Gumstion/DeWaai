@@ -163,16 +163,20 @@ class db {
     }
 
     function getSoortCursus($soort) {
-        $sql = "SELECT cursussoort, prijs, beschrijving FROM soortcursus WHERE soort_id = ?";
+        $sql = "SELECT cursussoort, prijs, beschrijving, schip_ontwerp, aantal, bezet FROM soortcursus WHERE soort_id = ?";
         $prep = $this->conn->prepare($sql);
         $prep->execute([$soort]);
         $result= $prep->fetch(PDO::FETCH_ASSOC);
         $prijs = $result['prijs'];
         $cursussoort = $result['cursussoort'];
         $beschrijving = $result['beschrijving'];
+        $schip_ontwerp = $result['schip_ontwerp'];
+        $plaatsenOver = $result['aantal'] - $result['bezet'];
         echo "<h4 class=\"pull-right\">€$prijs,-</h4><br/>";
         echo "<h4><a href=\"#\">$cursussoort</a></h4>";
-        echo "<p>$beschrijving</p>";
+        echo "<p>Beschrijving: $beschrijving</p>";
+        echo "<p>Soort schip: $schip_ontwerp</p>";
+        echo "<p>Plaatsen over: $plaatsenOver</p>";
     }
 
     function getCursus() {
@@ -204,9 +208,11 @@ class db {
             $soort_id = $cursus['soort_id'];
             $sth->execute([$soort_id]);
             $result = $sth->fetch(PDO::FETCH_ASSOC);
-            echo "<li>Weeknummer: " . $cursus['weeknummer'] . "</li>
+            echo "<ul class='table-bordered'>
+                  <li>Weeknummer: " . $cursus['weeknummer'] . "</li>
                   <li>Aantal personen: " . $cursus['aantal'] . "</li>
-                  <li>Cursussoort: " . $result['cursussoort'] . "</li><br/>";
+                  <li>Cursussoort: " . $result['cursussoort'] . "</li>
+                  </ul><br/>";
 
         }
     }
@@ -219,30 +225,35 @@ class db {
 
         foreach ($result as $schip){
 
-            echo "<li>Schip_id: " . $schip['schip_id'] . "</li>
+            echo "<ul class='table-bordered'>
+                  <li>Schip_id: " . $schip['schip_id'] . "</li>
                   <li>Naam: " . $schip['naam'] . "</li>
                   <li>Plaatsen: " . $schip['plaatsen'] . "</li>
                   <li>Averij: " . $schip['averij'] . "</li>
-                  <li>Cursussoort: " . $schip['soort_id'] . "</li><br/>";
+                  <li>Cursussoort: " . $schip['soort_id'] . "</li>
+                  </ul><br/>";
         }
     }
 
     function getAllMedewerkers() {
-        $sql = "SELECT * FROM user WHERE userlevel = ?";
+        $sql = "SELECT * FROM user WHERE userlevel != ? ";
         $sth = $this->conn->prepare($sql);
-        $sth->execute([2]);
+        $sth->execute([3]);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($result as $medewerker){
 
-            echo "<li>Schip_id: " . $medewerker['user_id'] . "</li>
-                  <li>Ontwerp: " . $medewerker['email'] . "</li>
-                  <li>Naam: " . $medewerker['voornaam'] . "</li>
-                  <li>Plaatsen: " . $medewerker['achternaam'] . "</li>
-                  <li>Averij: " . $medewerker['telefoonnummer'] . "</li>
-                  <li>Cursussoort: " . $medewerker['IBAN'] . "</li>
-                  <li>Averij: " . $medewerker['postcode'] . "</li>
-                  <li>Averij: " . $medewerker['huisnummer'] . "</li><br/>";
+            echo "<ul class='table-bordered'>
+                      <li>User nummer: " . $medewerker['user_id'] . "</li>
+                      <li>E-mail: " . $medewerker['email'] . "</li>
+                      <li>Voornaam: " . $medewerker['voornaam'] . "</li>
+                      <li>Achternaam: " . $medewerker['achternaam'] . "</li>
+                      <li>Telefoonnummer: " . $medewerker['telefoonnummer'] . "</li>
+                      <li>IBAN: " . $medewerker['IBAN'] . "</li>
+                      <li>Postcode: " . $medewerker['postcode'] . "</li>
+                      <li>Huisnummer: " . $medewerker['huisnummer'] . "</li>
+                      <li>Userlevel: " . $medewerker['userlevel'] . "</li>
+                  </ul><br/>";
         }
     }
 }

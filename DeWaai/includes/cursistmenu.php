@@ -8,13 +8,7 @@
                 <li role="presentation"><a href="index.php">Home</a></li>
                 <li role="presentation"><a href="cursussen.php">Cursussen</a></li>
                 <li role="presentation"><a href="contact.php">Contact</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="cursus.php">Cursus </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="presentation"><a href="cursustoevoegen.php">Cursus toevoegen</a></li>
-                        <li role="presentation"><a href="#">Cursus Wijzigen</a></li>
-                    </ul>
-                </li>
-                <li role="presentation"><a href="schepen.php">Schepen</a></li>
+
 
 
 
