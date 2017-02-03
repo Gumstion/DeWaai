@@ -131,7 +131,8 @@ class db {
         $updateBezet = $result['bezet'] + $aantal;
 
         if($updateBezet >= $result['aantal']) {
-            header("Location: ../dashboard.php");
+            $_SESSION['cursus_is_vol'] = "Deze cursus zit vol";
+            header("Location: ../reserveren.php");
         } else {
             $sql = "INSERT INTO cursus (weeknummer, aantal, soort_id) VALUES (?,?,?)";
             $prep = $this->conn->prepare($sql);

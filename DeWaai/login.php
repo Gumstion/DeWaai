@@ -7,10 +7,12 @@
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
             <?php
-                if($_SESSION['logged'] == 0) {
-                    echo $_SESSION['foutinloggen'];
-
+                if(!empty($_SESSION['logged'])) {
+                    if($_SESSION['logged'] == 0) {
+                        echo $_SESSION['foutinloggen'];
+                    }
                 }
+
             ?>
             <div class="form-group">
                 <input class="form-control" type="email" name="email" required="" placeholder="Email">
