@@ -11,7 +11,7 @@
 <?php
 include "functions/connection.php";
 //kijken of de gebruiker is ingelogd
-if($_SESSION['logged'] == 1) {
+if(!empty($_SESSION['logged']) && $_SESSION['logged'] == 1) {
     //admin
     if($_SESSION['userlevel'] == 1) {
         include 'includes/adminmenu.php';

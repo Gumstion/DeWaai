@@ -5,7 +5,7 @@
  * Date: 1/31/2017
  * Time: 11:51 AM
  */
-include "connection.php";
+include "functionsconnection.php";
 
 $email = $_POST['email'];
 $voornaam = $_POST['vnaam'];

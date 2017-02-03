@@ -97,24 +97,50 @@ class db {
         }
     }
 
-    function setSchip($schip_id, $ontwerp, $naam, $plaatsen, $averij, $soort_id) {
-        $sql = "INSERT INTO schip (schip_id, ontwerp, naam, plaatsen, averij, soort_id) VALUES (?,?,?,?,?,?)";
+    function setSchip($schip_id, $naam, $plaatsen, $averij, $soort_id) {
+        $sql = "INSERT INTO schip (schip_id, naam, plaatsen, averij, soort_id) VALUES (?,?,?,?,?)";
         $prep = $this->conn->prepare($sql);
-        $prep->execute([$schip_id, $ontwerp, $naam, $plaatsen, $averij, $soort_id]);
+        $prep->execute([$schip_id, $naam, $plaatsen, $averij, $soort_id]);
+
+        $sql = "SELECT aantal FROM soortcursus WHERE soort_id = ?";
+        $prep = $this->conn->prepare($sql);
+        $prep->execute([$soort_id]);
+        $result = $prep->fetch(PDO::FETCH_ASSOC);
+        $aantal = $plaatsen + $result['aantal'];
+
+        $sql = "UPDATE soortcursus SET aantal = ? WHERE soort_id = ?";
+        $prep = $this->conn->prepare($sql);
+        $prep->execute([$aantal, $soort_id]);
+
         header("Location: ../schepentoevoegen.php");
+
+
     }
 
-    function setReservering($begindatum, $einddatum, $aantal, $soort_id) {
-        $sql = "INSERT INTO cursus (begindatum, einddatum, aantal, soort_id) VALUES (?,?,?,?)";
+    function setReservering($weeknummer, $aantal, $soort_id) {
+        $sql = "SELECT cursus_id FROM cursus WHERE weeknummer = ? AND aantal = ? AND soort_id = ?";
         $prep = $this->conn->prepare($sql);
-        $prep->execute([$begindatum, $einddatum, $aantal, $soort_id]);
-
-        $sql = "SELECT cursus_id FROM cursus WHERE begindatum = ? AND einddatum = ? AND aantal = ? AND soort_id = ?";
-        $prep = $this->conn->prepare($sql);
-        $prep->execute([$begindatum, $einddatum, $aantal, $soort_id]);
+        $prep->execute([$weeknummer, $aantal, $soort_id]);
         $result = $prep->fetch(PDO::FETCH_ASSOC);
         $_SESSION['cursus_id'] = $result['cursus_id'];
-        echo $_SESSION['cursus_id'];
+
+        $sql = "SELECT aantal, bezet FROM soortcursus WHERE soort_id = ?";
+        $prep = $this->conn->prepare($sql);
+        $prep->execute([$soort_id]);
+        $result = $prep->fetch(PDO::FETCH_ASSOC);
+        $updateBezet = $result['bezet'] + $aantal;
+
+        if($updateBezet >= $result['aantal']) {
+            header("Location: ../dashboard.php");
+        } else {
+            $sql = "INSERT INTO cursus (weeknummer, aantal, soort_id) VALUES (?,?,?)";
+            $prep = $this->conn->prepare($sql);
+            $prep->execute([$weeknummer, $aantal, $soort_id]);
+
+            $sql = "UPDATE soortcursus SET bezet = ? WHERE soort_id = ?";
+            $prep = $this->conn->prepare($sql);
+            $prep->execute([$updateBezet, $soort_id]);
+        }
     }
 
     function setCursist() {
@@ -126,10 +152,10 @@ class db {
         header("Location: ../dashboard.php");
     }
 
-    function setSoortCursus($cursussoort, $prijs, $omschrijving) {
-        $sql = "INSERT INTO soortcursus (cursussoort, prijs, beschrijving) VALUES (?,?,?)";
+    function setSoortCursus($cursussoort, $prijs, $omschrijving, $ontwerp) {
+        $sql = "INSERT INTO soortcursus (cursussoort, prijs, beschrijving, schip_ontwerp, aantal, bezet) VALUES (?,?,?,?,?,?)";
         $prep = $this->conn->prepare($sql);
-        $prep->execute([$cursussoort, $prijs, $omschrijving]);
+        $prep->execute([$cursussoort, $prijs, $omschrijving, $ontwerp, 0, 0]);
         header("Location: ../cursustoevoegen.php");
     }
 
@@ -175,8 +201,7 @@ class db {
             $soort_id = $cursus['soort_id'];
             $sth->execute([$soort_id]);
             $result = $sth->fetch(PDO::FETCH_ASSOC);
-            echo "<li>Begindatum: " . $cursus['begindatum'] . "</li>
-                  <li>Einddatum: " . $cursus['einddatum'] . "</li>
+            echo "<li>Weeknummer: " . $cursus['weeknummer'] . "</li>
                   <li>Aantal personen: " . $cursus['aantal'] . "</li>
                   <li>Cursussoort: " . $result['cursussoort'] . "</li><br/>";
 
@@ -192,7 +217,6 @@ class db {
         foreach ($result as $schip){
 
             echo "<li>Schip_id: " . $schip['schip_id'] . "</li>
-                  <li>Ontwerp: " . $schip['ontwerp'] . "</li>
                   <li>Naam: " . $schip['naam'] . "</li>
                   <li>Plaatsen: " . $schip['plaatsen'] . "</li>
                   <li>Averij: " . $schip['averij'] . "</li>

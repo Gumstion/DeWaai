@@ -16,7 +16,6 @@ include 'includes/header.php';
             <input class="form-control" type="number" name="schip_id" required="" placeholder="Nummer">
             <input class="form-control" type="text" name="naam" required="" placeholder="Naam">
             <input class="form-control" type="number" name="plaatsen" required="" placeholder="Aantal plaatsen">
-            <input class="form-control" type="text" name="ontwerp" required="" placeholder="Ontwerp">
             <select name="cursus">
                 <option value="1">Beginners</option>
                 <option value="2">Gevorderde</option>

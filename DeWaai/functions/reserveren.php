@@ -5,12 +5,11 @@
  * Date: 1/31/2017
  * Time: 11:51 AM
  */
-include "connection.php";
+include "functionsconnection.php";
 
-$begindatum = $_POST['bdatum'];
-$einddatum = $_POST['edatum'];
+$weeknummer = $_POST['weeknummer'];
 $aantal = $_POST['aantal'];
 $soort_id = $_POST['cursus'];
 
-$db->setReservering($begindatum, $einddatum, $aantal, $soort_id);
+$db->setReservering($weeknummer, $aantal, $soort_id);
 $db->setCursist();

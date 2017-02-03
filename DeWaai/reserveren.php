@@ -13,10 +13,8 @@ include 'includes/header.php';
         <form action="functions/reserveren.php" method="post">
             <h2 class="text-center">Cursus reserveren</h2>
             <div class="form-group">
-                Begindatum:<br>
-                <input class="form-control" type="date" name="bdatum" required="" >
-                Einddatum:<br>
-                <input class="form-control" type="date" name="edatum" required="" >
+                Weeknummer:<br>
+                <input class="form-control" type="number" name="weeknummer" required="" >
                 Aantal personen:<br>
                 <input class="form-control" type="number" name="aantal" required="" >
                 <select name="cursus">

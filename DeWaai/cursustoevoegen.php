@@ -19,6 +19,8 @@ include 'includes/header.php';
                 <input class="form-control" type="number" name="prijs" required="" >
                 Omschrijving:<br>
                 <input class="form-control" type="text" name="omschrijving" required="" >
+                Schip ontwerp:<br>
+                <input class="form-control" type="text" name="ontwerp" required="" >
                 <br/>
                 <button class="btn btn-primary" type="submit">Toevoegen </button>
             </div>

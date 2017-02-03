@@ -49,21 +49,6 @@ include 'includes/header.php';
                 </form>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="thumbnail">
-                <img src="assets/images/draak.jpg" alt="">
-                <div class="caption">
-                    <?php
-                    $db->getSoortCursus(7);
-                    ?>
-                </div>
-                <form action="functions/checkloggedin.php" method="post">
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Reserveren </button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 </div>
 <?php

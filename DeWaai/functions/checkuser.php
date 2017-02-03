@@ -1,5 +1,5 @@
 <?php
-include "connection.php";
+include "functionsconnection.php";
 
 $email = $_POST['email'];
 $wachtwoord = $_POST['wachtwoord'];
